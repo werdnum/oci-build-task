@@ -122,6 +122,11 @@ func Build(buildkitd *Buildkitd, outputsDir string, req Request) (Response, erro
 		outputType = "oci"
 	}
 
+	outputParams := ""
+	if cfg.OutputEStargz {
+		outputParams = ",compression=estargz,oci-mediatypes=true,force-compression=true"
+	}
+
 	for _, t := range cfg.AdditionalTargets {
 		// prevent re-use of the buildctlArgs slice as it is appended to later on,
 		// and that would clobber args for all targets if the slice was re-used
@@ -137,7 +142,7 @@ func Build(buildkitd *Buildkitd, outputsDir string, req Request) (Response, erro
 			imagePaths = append(imagePaths, imagePath)
 
 			targetArgs = append(targetArgs,
-				"--output", "type="+outputType+",dest="+imagePath,
+				"--output", "type="+outputType+",dest="+imagePath+outputParams,
 			)
 		}
 
@@ -151,7 +156,7 @@ func Build(buildkitd *Buildkitd, outputsDir string, req Request) (Response, erro
 		imagePaths = append(imagePaths, imagePath)
 
 		buildctlArgs = append(buildctlArgs,
-			"--output", "type="+outputType+",dest="+imagePath,
+			"--output", "type="+outputType+",dest="+imagePath+outputParams,
 		)
 	}
 

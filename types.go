@@ -20,18 +20,18 @@ type Request struct {
 // propagate to the rest of the build plan, by specifying `outputs` or
 // `output_mapping` like so:
 //
-//   task: build
-//   outputs: [image]
+//	task: build
+//	outputs: [image]
 //
-//   task: build
-//   output_mapping: {image: my-image}
+//	task: build
+//	output_mapping: {image: my-image}
 //
 // Outputs may also be 'cached', meaning their previous value will be present
 // for subsequent runs of the task:
 //
-//   task: build
-//   outputs: [image]
-//   caches: [cache]
+//	task: build
+//	outputs: [image]
+//	caches: [cache]
 type Response struct {
 	Outputs []string `json:"outputs"`
 }
@@ -69,7 +69,8 @@ type Config struct {
 	// Theoretically this would go away if/when we standardize on OCI.
 	UnpackRootfs bool `json:"unpack_rootfs" envconfig:"optional"`
 
-	OutputOCI bool `json:"output_oci" envconfig:"optional"`
+	OutputOCI     bool `json:"output_oci" envconfig:"optional"`
+	OutputEStargz bool `json:"output_estargz" envconfig:"OUTPUT_ESTARGZ,optional"`
 
 	// Images to pre-load in order to avoid fetching at build time. Mapping from
 	// build arg name to OCI image tarball path.

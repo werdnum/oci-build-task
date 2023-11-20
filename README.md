@@ -152,6 +152,10 @@ _(As a convention in the list below, all task parameters are specified with a
   (https://docs.docker.com/desktop/extensions-sdk/extensions/multi-arch/). The
   image output format will be a directory when this flag is set to true.
 
+* `$OUTPUT_ESTARGZ` (default `false`): outputs an [eStargz image]
+  (https://github.com/containerd/stargz-snapshotter/blob/main/docs/estargz.md),
+  allowing compatible runtimes to stream the image rather than pulling it all at once.
+
 * `$BUILDKIT_ADD_HOSTS` (default empty): extra host definitions for `buildkit`
   to properly resolve custom hostnames. The value is as comma-separated
   (`,`) list of key-value pairs (using syntax `hostname=ip-address`), each
